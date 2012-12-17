@@ -1,0 +1,4 @@
+<% @member = MemberInfo.find(params[:member_id]) %>
+<h1><%= @member.full_name %></h1>
+
+<%= render :partial => 'form', :locals=>{:target=>{:controller=>:anpi_infos, :action=>:create}} %>

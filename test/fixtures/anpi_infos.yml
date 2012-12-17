@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  syachiku: 1
+  hurt_info: 1
+  location_info: 
+  syachiku_readon: MyText
+  contact: MyText
+
+two:
+  syachiku: 1
+  hurt_info: 1
+  location_info: 
+  syachiku_readon: MyText
+  contact: MyText

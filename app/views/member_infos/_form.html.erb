@@ -1,0 +1,19 @@
+<%= form_for(@member_info) do |f| %>
+  <%= f.label "氏名" %>
+  <%= f.text_field :full_name %>
+  <%= f.label "誕生日" %>
+  <%= f.text_field :birthday %>
+  <%= f.label "メールアドレス" %>
+  <%= f.email_field :email %>
+  <%= f.label "性別" %>
+  <%= f.text_field :gender %>
+  <%= f.label "所属部署名" %>
+  <%= f.select :project_id, Project.find(:all).map{|t| [t.p_name, t.id]} %>
+  <%= f.label "所属課名" %>
+  <%= f.select :team_id, Team.find(:all).map{|t| [t.team_name, t.id]} %>
+  <%= f.label "役職名" %>
+  <%= f.select :role_id, Role.find(:all).map{|t| [t.role_name, t.id]} %>
+  <br>
+  <%= f.submit "更新", :class=>"btn btn-primary" %>
+  </div>
+<% end %>

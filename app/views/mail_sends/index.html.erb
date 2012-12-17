@@ -1,0 +1,29 @@
+<h1>メール送信</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<!--
+  <tr>
+    <textarea><#%= MailTemplate.find_by_mailName(:first).title %></textarea><br>
+    <textarea rows="6"><#%= MailTemplate.find_by_mailName(:first).body %>
+    </textarea><br>
+  </tr>
+-->
+  <tr>  
+    <th>以上を送ります<br></th><th></th><th></th>
+  </tr>
+  <tr>
+    <th></th><th></th><th>
+       <td><input type="button" value="編集" onClick="location.href='mail_templates'"> </td>
+       <td><%= button_to 'New' , new_mail_send_path, :method=>"get"%></td>
+    </th>
+  </tr>
+
+</table>
+
+<br />

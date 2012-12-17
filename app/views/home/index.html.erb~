@@ -1,0 +1,18 @@
+<h1>安否確認システム</h1>
+<br />
+
+<% unless current_admin %>
+  <%= form_tag login_path do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name, params[:name] %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <br>
+  <%= submit_tag "ログイン", :class=>"btn btn-primary" %>
+  <br>
+  <% end %>
+  <%= button_to "登録(このボタンはリリース時は消します)", admins_new_path, :class=>"btn", :method=>:get %>
+<% else %>
+  既にログインしています。
+<%= link_to "管理者一覧", admins_list_path %>
+<% end %>

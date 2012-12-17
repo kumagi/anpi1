@@ -1,0 +1,11 @@
+<h1>管理者登録</h1>
+<%= form_tag "/admins/new" do |f| %>
+  <%= label_tag "ユーザ名" %>
+  <%= text_field_tag :name %>
+  <%= label_tag "パスワード" %>
+  <%= password_field_tag :password %>
+  <%= label_tag "パスワード（確認）" %>
+  <%= password_field_tag :password_confirmation %>
+  <br>
+  <%= submit_tag "登録",:class=>"btn btn-primary", :target=>admins_new_path %>
+<% end %>

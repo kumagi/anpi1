@@ -1,0 +1,26 @@
+<h1>役職一覧</h1>
+
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+  <tr>
+    <th>役職名</th>
+    <th>偉さ</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+<% @roles.each do |role| %>
+  <tr>
+    <td><%= role.role_name %></td>
+    <td><%= role.power %></td>
+    <td><%= link_to edit_icon, edit_role_path(role), :class => "btn btn-primary btn-mini" , :method=>:get %>
+    <%= link_to delete_icon, role,:method=>:delete, :class => "btn btn-danger btn-mini",:data=> { confirm: "役職 #{role.role_name} を消去して宜しいですか？" } %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to add_icon, new_role_path, :class =>"btn btn-primary", :method =>:get %>

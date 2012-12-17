@@ -1,0 +1,17 @@
+<%= form_for(@anpi_info, :url=>target) do |f| %>
+  <p>出社可否</p>
+  <%= f.select :syachiku, [["可能",1],["不可能",2]], :include_blank =>true %>
+  <p>本人の状態</p>
+  <%= f.select :hurt_info, [["無事",1],["軽傷",2],["重傷",3]], :include_blank =>true %>
+  <p>家族の安否</p>
+  <%= f.select :family_info, [["確認済み",1],["未確認",2]], :include_blank =>true %>
+  <br>
+  位置情報<br />
+  <%= f.text_field :location_info %><br>
+  出社不可の理由<br />
+  <%= f.text_area :syachiku_reason, :size=>"100x4" %><br>
+  会社への連絡事項<br />
+  <%= f.text_area :contact, :size=>"100x4" %><br>
+  <%= f.hidden_field :member_info_id, :value => @anpi_info.member_info_id %>
+  <%= f.submit "安否情報を登録",:class=>"btn btn-primary" %>
+<% end %>

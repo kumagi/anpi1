@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  selected_mail: 1
+  last_send: 2012-12-17 14:27:59
+
+two:
+  selected_mail: 1
+  last_send: 2012-12-17 14:27:59

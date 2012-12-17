@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>安否確認システム</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% unless notice.nil?%>
+<p class="alert-success"><i class="icon-ok-circle"></i> <%= notice %></p>
+<% end %>
+
+<% unless alert.nil?%>
+<p class="alert-error"><i class="icon-remove-sign"></i> <%= alert %></p>
+<% end %>
+
+<h3>安否確認システム</h3>
+<%= yield %>

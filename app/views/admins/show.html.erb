@@ -1,0 +1,24 @@
+<p>
+ユーザ名:
+<%= current_admin.name %>
+</p>
+
+<p>
+登録日時:
+<%= current_admin.created_at %>
+</p>
+
+<p>
+パスワード変更:
+<%= form_tag change_password_path, :method=>:put do |f| %>
+  <%= label_tag "新しいパスワード" %>
+  <%= password_field_tag :password %>
+  <%= label_tag "新しいパスワード（確認）" %>
+  <%= password_field_tag :password_confirmation %>
+  <%= label_tag "古いパスワード" %>
+  <%= password_field_tag :old_password %>
+  <br>
+  <%= submit_tag "パスワード変更",:class=>"btn btn-primary", :target=>admins_new_path %>
+<% end %>
+</p>
+<%= link_to "管理者一覧", admins_list_path %>

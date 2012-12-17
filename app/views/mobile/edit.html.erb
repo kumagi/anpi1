@@ -1,0 +1,19 @@
+edit
+<%= current_member.full_name  %>
+<%= form_tag(mobile_put_path, :controller=>:mobile_controller, :method=>:put) do %>
+  <p>出社可否</p>
+  <%= select_tag :syachiku, options_for_select([["可能",1],["不可能",2]]), :include_blank =>true %>
+  <p>本人の状態</p>
+  <%= select_tag :hurt_info, options_for_select([["無事",1],["軽傷",2],["重傷",3]]), :include_blank =>true %>
+  <p>家族の安否</p>
+  <%= select_tag :family_info, options_for_select([["確認済み",1],["未確認",2]]), :include_blank =>true %>
+  <br>
+  位置情報<br />
+  <%= text_field_tag :location_info %><br>
+  出社不可の理由<br />
+  <%= text_area_tag :syachiku_reason %><br>
+  会社への連絡事項<br />
+  <%= text_area_tag :contact %><br>
+  <%= hidden_field :member_info_id, :value => current_member.id %>
+  <%= submit_tag "安否情報を登録",:class=>"btn btn-primary" %>
+<% end %>

@@ -1,0 +1,6 @@
+<% @member = MemberInfo.find(@anpi_info.member_info) %>
+<div class="page-header">
+  <h1>安否情報編集</h1>
+</div>
+<h4>氏名:<%= @member.full_name %></h4>
+<%= render :partial => 'form', :locals=>{:target=>{:controller=>:anpi_infos, :action=>:update}} %>

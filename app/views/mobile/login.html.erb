@@ -1,0 +1,8 @@
+<%= form_tag('/mobile/login', :method => :post) do %>
+  <%= label_tag :full_name,"フルネーム", :class => 'control-label' %>
+  <%= text_field_tag :full_name, "",:class => 'text_field' %><br />
+  <%= label_tag :birthday,"誕生日", :class => 'control-label' %>
+  <%= text_field_tag :birthday, "",:class => 'text_field' %>
+  <br>
+  <%= submit_tag "ログイン", :class => "btn btn-info" %>
+<% end %>

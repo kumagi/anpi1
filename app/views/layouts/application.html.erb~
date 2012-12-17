@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>安否確認システム</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <style>
+    body {
+      padding-top: 60px
+    }
+  </style>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="/">安否情報確認</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav-collapse collapse">
+          <% if admin_signed_in? %>
+          <li class="">
+            管理者：<%= link_to current_admin.name, admin_path %>
+            <%= link_to "<i class='icon-share-alt'></i>ログアウト".html_safe, logout_path %>
+          </li>
+          <% else %>
+          <li class="">管理者：ログインしていません</li>
+          <% end %>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<% if admin_signed_in? %>
+
+<% unless notice.nil?%>
+<p class="alert-success"><i class="icon-ok-circle"></i> <%= notice %></p>
+<% end %>
+
+<% unless alert.nil?%>
+<p class="alert-error"><i class="icon-remove-sign"></i> <%= alert %></p>
+<% end %>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="span3">
+      <h4>前回の送信日時</h4>
+      <strong><%= Time.now %></strong>
+      <ul class="nav nav-list">
+        <li class="nav-header">メニュー</li>
+	<li>
+	  <%= link_to "<i class='icon-chevron-right'></i>トップ".html_safe, root_path -%>
+	</li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to "<i class='icon-chevron-right'></i>管理者一覧".html_safe, admins_list_path -%>
+        </li>
+	<li>
+	  <%= link_to "<i class='icon-chevron-right'></i>メールテンプレート".html_safe, mail_templates_path -%>
+	</li>
+	<li>
+	  <!-- このボタンは安否をいっせいに否にするボタンである(ｷﾘｯ -->
+	  <%= link_to "<i class='icon-certificate'></i>災害発生".html_safe, mail_templates_path -%>
+	</li>
+	<li>
+	  <%= link_to "<i class='icon-chevron-right'></i>ステータス".html_safe, mail_templates_path -%>
+	</li>
+      </ul>
+      </div>
+    <div class="span9">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<% elsif params[:controller] == "home" || params[:controller] == "admins" %>
+<%= yield %>
+<% else %>
+<%= params[:controller] %>
+  ログインしてください。
+  <% link_to "ログイン画面",root_path %>
+<% end %>  
+</body>
+</html>

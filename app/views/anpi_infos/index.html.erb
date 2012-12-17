@@ -1,0 +1,46 @@
+<%- model_class = AnpiInfo -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>出社可能</th>
+      <th>氏名</th>
+      <th>本人の状態</th>
+      <th>家族の状態</th>
+      <th>出社不可の理由</th>
+      <th>会社への連絡事項</th>
+      <th>登録日時</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @anpi_infos.each do |anpi_info| %>
+      <tr>
+        <td><%= anpi_info.syachiku_to_s %></td>
+        <td><%= anpi_info.member_info %></td>
+        <td><%= anpi_info.hurt_info %></td>
+        <td><%= anpi_info.family_info %></td>
+        <td></td>
+        <td><%= anpi_info.location_info %></td>
+        <td><%= anpi_info.syachiku_reason %></td>
+        <td><%= anpi_info.contact %></td>
+        <td><%= time_format(anpi_info.created_at) %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_anpi_info_path(anpi_info), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      anpi_info_path(anpi_info),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "新規",
+            new_anpi_info_path,
+            :class => 'btn btn-primary' %>

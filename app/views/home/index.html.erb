@@ -1,0 +1,103 @@
+<h1>安否確認システム</h1>
+<br />
+
+<%= form_tag root_path, :controller=>:home_controller, :method=>:post do %>
+  部署名:<%= select_tag :project, options_for_select(Project.all.map{|p|[p.p_name, p.id]}), :include_blank =>true %>
+  課名:<%= select_tag :team, options_for_select(Team.all.map{|p|[p.team_name, p.id]}), :include_blank =>true %>
+  氏名:<%= text_field_tag :name, "" %>
+  <%= submit_tag "検索", :class=>"btn btn-info" %>
+<% end %>
+
+<% if @searched != {} %>
+<p>
+  検索条件
+  <% if @searched["name"] %>
+    氏名: <%= @searched["name"] %>
+  <% end %>
+  <% if @searched["project"] %>
+    部: <%= @searched["project"] %>
+  <% end %>
+  <% if @searched["team"] %>
+    課: <%= @searched["team"] %>
+  <% end %>
+</p>
+<% end %>
+
+<% unless current_admin %>
+  <%= form_tag login_path do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name, params[:name] %>
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <br>
+  <%= submit_tag "ログイン", :class=>"btn btn-primary" %>
+  <br>
+  <% end %>
+  <%= button_to "登録(このボタンはリリース時は消します)", admins_new_path, :class=>"btn", :method=>:get %>
+<% else %>
+
+
+<p>
+  <span class="label">
+  未登録:
+  <%= @member_infos.count{|member| member.anpi_info.nil? || member.anpi_info.syachiku_unknown?} %>件
+  </span>
+  <span class="label label-success">
+  出社可:
+  <%= @member_infos.count{|member| member.anpi_info && member.anpi_info.syachiku == 1} %>件
+  </span>
+  <span class="label label-important">
+  出社不可:
+  <%= @member_infos.count{|member| member.anpi_info && member.anpi_info.syachiku == 2} %>件
+  </span>
+</p>
+
+<p>社員一覧</p>
+<table class="table table-condened table-hover">
+  <thead>
+  <th>氏名</th>
+  <th>生年月日</th>
+  <th>性別</th>
+  <th>部</th>
+  <th>課</th>
+  <th>役職</th>
+  <th>安否情報編集</th>
+  <th>操作</th>
+  </thead>
+  <tbody>
+    <% @member_infos.each do |member| %>
+  <% if member.anpi_info.nil? || member.anpi_info.syachiku_unknown? %>
+    <tr>
+  <% elsif member.anpi_info.syachiku == 1 %>
+    <tr class="info">
+  <% elsif member.anpi_info.syachiku == 2 %>
+    <tr class="error">
+  <% else %>
+    <tr class="warning">
+  <% end %>
+
+  <% if member.anpi_info.nil? || member.anpi_info.syachiku_unknown? %>
+    <td> <%= link_to member.full_name, new_anpi_path(member) %> </td>
+  <% else %>
+    <td> <%= link_to member.full_name, edit_anpi_path(member.anpi_info, member.anpi_info) %> </td>
+  <% end %>
+    <td> <%= member.birthday %> </td>
+    <td> <%= member.gender %> </td>
+    <td> <%= member.project.p_name %> </td>
+    <td> <%= member.team.team_name %> </td>
+    <td> <%= member.role.role_name %> </td>
+  <% if member.anpi_info.nil? || member.anpi_info.syachiku_unknown? %>
+    <td> <%= link_to "安否情報", new_anpi_path(member),:class=>"btn btn-mini btn-info" %> </td>
+<% else %>
+    <td> <%= link_to "安否情報", edit_anpi_path(member.anpi_info),:class=>"btn btn-mini btn-success" %> </td>
+  <% end %>
+    <td>
+      <%= link_to edit_icon, edit_member_info_path(member),:class=>"btn btn-mini btn-primary" %>
+      <%= link_to delete_icon, member,:class=>"btn btn-mini btn-danger",:method=>:delete,:data=> { confirm: "社員 #{member.full_name} の情報を消去して宜しいですか？" } %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to add_icon, new_member_info_path, :class=>"btn btn-primary",:method=>:get %>
+<% end %>

@@ -1,0 +1,14 @@
+<%= form_for @project, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label "部名", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :p_name, :class => 'text_area' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "OK", :class => 'btn btn-primary' %>
+    <%= link_to "中止",
+        projects_path, :class => 'btn' %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<h1>ログイン</h1>
+
+<% if current_user == nil %>
+  <%= link_to "ログイン", sessions_path %>
+<% else %>
+  <%= link_to 'ログアウト', session_path(current_user.id), :confirm => 'ログアウトしますか？', :method => :delete %>
+<% end %>
+
+<%= form_for @admin do |f| %>
+  <% if @admin.errors.any?%>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @admin.errors.full_messages %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="actions"><%= f.submit %></div>
+<% end %>

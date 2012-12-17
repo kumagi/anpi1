@@ -1,0 +1,20 @@
+<%= form_for @role, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :role_name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :role_name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :power, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :power, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                roles_path, :class => 'btn' %>
+  </div>
+<% end %>
